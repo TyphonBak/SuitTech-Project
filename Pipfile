@@ -11,6 +11,7 @@ pytest = "*"
 pytest-cov = "*"
 flask-sqlalchemy = "*"
 python-dotenv = "*"
+factory-boy = "*"
 
 [requires]
 python_version = "3.7"
