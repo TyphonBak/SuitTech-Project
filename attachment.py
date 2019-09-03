@@ -5,6 +5,15 @@ import imghdr
 import re
 from email.message import EmailMessage
 
+def email_promo(produto):
+    conteudo = '''html_promo_base'''
+    emails = lista_emails()
+    envia_email(conteudo, emails)
+
+def email_sac(mensagem, de):
+    envia_email(mensagem, config.EMAIL_ADRESS)    
+
+
 def check():
     if(re.search(config.validacao,config.EMAIL_SENDER)):  
         print("Valid Email")  
@@ -12,7 +21,7 @@ def check():
     else:  
         print("Invalid Email")
 
-def envia_email():
+def envia_email(conteudo, lista_dest):
 
     EMAIL_ADDRESS = config.EMAIL_ADRESS
     EMAIL_PASSWORD = config.PASSWORD
