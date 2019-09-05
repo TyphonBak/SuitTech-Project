@@ -9,20 +9,6 @@ class Cliente():
         self.numero = numero
         self.cidade = cidade
         self.estado = estado
-
-        
-    def __dict__(self):
-        dados = dict()
-        dados['id'] = self.id
-        dados['nome'] = self.nome
-        dados['cpf'] = self.cpf 
-        dados['email'] = self.email 
-        dados['logradouro'] = self.logradouro 
-        dados['cep'] = self.cep
-        dados['numero'] = self.numero 
-        dados['cidade'] = self.cidade 
-        dados['estado'] = self.estado
-        return dados
     
     def atualizar(self, dados):
         try:
@@ -44,12 +30,24 @@ class Cliente():
             self.estado = estado
             return self, None
         except Exception as e:
-            print("deu ruim")
+            None, e
+        
+    def __dict__(self):
+        dados = dict()
+        dados['id'] = self.id
+        dados['nome'] = self.nome
+        dados['cpf'] = self.cpf 
+        dados['email'] = self.email 
+        dados['logradouro'] = self.logradouro 
+        dados['cep'] = self.cep
+        dados['numero'] = self.numero 
+        dados['cidade'] = self.cidade 
+        dados['estado'] = self.estado
+        return dados
 
     @staticmethod
     def cria(dados):
         try:
-            id = dados["id"]
             nome = dados["nome"] 
             cpf = dados['cpf'] 
             email = dados['email'] 
@@ -58,22 +56,21 @@ class Cliente():
             numero = dados['numero']
             cidade = dados['cidade']
             estado = dados['estado']
-            return Cliente(id=id, nome=nome, cpf=cpf, email=email, logradouro=logradouro, cep=cep, numero=numero, cidade=cidade, estado=estado)
+            return Cliente(id=None, nome=nome, cpf=cpf, email=email, logradouro=logradouro, cep=cep, numero=numero, cidade=cidade, estado=estado), None
         except Exception as e:
-            return e
+            None, e
 
     @staticmethod
     def cria_de_tupla(dados):
         try:
-            id = dados[0]
-            nome = dados[1] 
-            cpf = dados[2] 
-            email = dados[3] 
-            logradouro = dados[4]
-            cep = dados[5]
-            numero = dados[6]
-            cidade = dados[7]
-            estado = dados[8]
-            return Cliente(id=id, nome=nome, cpf=cpf, email=email, logradouro=logradouro, cep=cep, numero=numero, cidade=cidade, estado=estado)
+            nome = dados[0]
+            cpf = dados[1]
+            email = dados[2]
+            logradouro = dados[3]
+            cep = dados[4]
+            numero = dados[5]
+            cidade = dados[6]
+            estado = dados[7]
+            return Cliente(id=id, nome=nome, cpf=cpf, email=email, logradouro=logradouro, cep=cep, numero=numero, cidade=cidade, estado=estado), None
         except Exception as e:
-            return None
+            None, e

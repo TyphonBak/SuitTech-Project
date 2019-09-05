@@ -14,24 +14,6 @@ class Produto():
         self.impostos = impostos
         self.estoque = estoque
         self.descricao = descricao 
-
-    def __dict__(self):
-        dados = dict()
-        dados['id'] = self.id
-        dados['categoria'] = self.categoria
-        dados['nome'] = self.nome 
-        dados['peso'] = self.peso 
-        dados['altura'] = self.altura 
-        dados['largura'] = self.largura
-        dados['cor'] = self.cor 
-        dados['material'] = self.material 
-        dados ['precoCusto'] = self.precoCusto
-        dados['precoVendaVarejo'] = self.precoVendaVarejo
-        dados ['precoVendaAtacado'] = self.precoVendaAtacado
-        dados ['impostos'] = self.impostos 
-        dados ['estoque'] = self.estoque
-        dados ['descricao'] = self.descricao 
-        return dados
     
     def atualizar(self, dados):
         try:
@@ -63,12 +45,29 @@ class Produto():
             self.descricao = descricao
             return self, None
         except Exception as e:
-            print("deu ruim")
+            None, e
+
+    def __dict__(self):
+        dados = dict()
+        dados['id'] = self.id
+        dados['categoria'] = self.categoria
+        dados['nome'] = self.nome 
+        dados['peso'] = self.peso 
+        dados['altura'] = self.altura 
+        dados['largura'] = self.largura
+        dados['cor'] = self.cor 
+        dados['material'] = self.material 
+        dados ['precoCusto'] = self.precoCusto
+        dados['precoVendaVarejo'] = self.precoVendaVarejo
+        dados ['precoVendaAtacado'] = self.precoVendaAtacado
+        dados ['impostos'] = self.impostos 
+        dados ['estoque'] = self.estoque
+        dados ['descricao'] = self.descricao 
+        return dados
 
     @staticmethod
     def cria(dados):
         try:
-            id = dados["id"]
             categoria = dados["categoria"] 
             nome = dados['nome'] 
             peso = dados['peso'] 
@@ -82,7 +81,26 @@ class Produto():
             impostos = dados['impostos']
             estoque = dados['estoque']
             descricao = dados['descricao']
+            return Produto(id=None, categoria=categoria, nome=nome, peso=peso, altura=altura, largura=largura, cor=cor, material=material, precoCusto=precoCusto, precoVendaVarejo=precoVendaVarejo, precoVendaAtacado=precoVendaAtacado, impostos=impostos, estoque=estoque, descricao=descricao), None
+        except Exception as e:
+            None, e
+
+    @staticmethod
+    def cria_de_tupla(dados):
+        try:
+            categoria = dados[0]
+            nome = dados[1]
+            peso = dados[2]
+            altura = dados[3]
+            largura = dados[4]
+            cor = dados[5]
+            material = dados[6]
+            precoCusto = dados[7]
+            precoVendaVarejo = dados[8]
+            precoVendaAtacado = dados[9]
+            impostos = dados[10]
+            estoque = dados[11]
+            descricao = dados[12]
             return Produto(id=id, categoria=categoria, nome=nome, peso=peso, altura=altura, largura=largura, cor=cor, material=material, precoCusto=precoCusto, precoVendaVarejo=precoVendaVarejo, precoVendaAtacado=precoVendaAtacado, impostos=impostos, estoque=estoque, descricao=descricao), None
         except Exception as e:
-            print("deu ruim")
-
+            None, e

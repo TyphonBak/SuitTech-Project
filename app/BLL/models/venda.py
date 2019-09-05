@@ -20,14 +20,23 @@ class Venda():
             self.idCliente = idCliente
             return self, None
         except Exception as e:
-            print("deu ruim")
+            None, e
 
     @staticmethod
     def cria(dados):
         try:
-            id = dados["id"]
             idVendedor = dados["idVendedor"] 
             idCliente = dados['idCliente'] 
+            return Venda(id=None, idVendedor=idVendedor, idCliente=idCliente), None
+        except Exception as e:
+            None, e
+
+    @staticmethod
+    def cria_de_tupla(dados):
+        try:
+            id = dados[0]
+            idVendedor = dados[1]
+            idCliente = dados[2]
             return Venda(id=id, idVendedor=idVendedor, idCliente=idCliente), None
         except Exception as e:
-            print("deu ruim")
+            None, e
