@@ -1,18 +1,22 @@
 class Vendedor():
-    def __init__(self, id, cpf, email):
+    def __init__(self, nome, cpf, email, id=None):
         self.id = id
+        self.nome = nome
         self.cpf = cpf
         self.email = email
         
     def __dict__(self):
         dados = dict()
         dados['id'] = self.id
+        dados['nome'] = self.nome
         dados['cpf'] = self.cpf 
         dados['email'] = self.email 
         return dados
     
     def atualizar(self, dados):
         try:
+            nome = dados['nome']
+            self.nome = nome
             cpf = dados["cpf"]
             self.cpf = cpf 
             email = dados['email'] 
@@ -24,8 +28,9 @@ class Vendedor():
     @staticmethod
     def cria(dados):
         try:
-            cpf = dados["cpf"] 
-            email = dados['email'] 
+            nome = dados['nome']
+            cpf = dados["cpf"]
+            email = dados['email']
             return Vendedor(id=None, cpf=cpf, email=email), None
         except Exception as e:
             None, e
@@ -34,8 +39,9 @@ class Vendedor():
     def cria_de_tupla(dados):
         try:
             id = dados[0]
-            cpf = dados[1]
-            email = dados[2]
-            return Vendedor(id=id, cpf=cpf, email=email), None
+            nome = dados[1]
+            cpf = dados[2]
+            email = dados[3]
+            return Vendedor(id=id, nome=nome, cpf=cpf, email=email), None
         except Exception as e:
             None, e
