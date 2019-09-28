@@ -9,7 +9,7 @@
     <title>Documentação</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container">
         <h1 class="text-center">TITARTE - API Restfull</h1>
         <div class="row">
             <!--MENU-->        
@@ -83,11 +83,13 @@
                                 </h5>
                                 <div class="card-body">
                                     <p class="card-text">{{ detalhes['descricao'] }}</p>
+                                    {% if detalhes['pacote'] %}
                                     <hr>
                                     <h6 class="card-title">
                                         Formato de envio
                                     </h6>               
                                     <code class="card-text">{{ detalhes['pacote'] }}</code>  
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -110,7 +112,6 @@
                             </div>
                         </div>
                         {% endfor %}
-                        <hr>
                         {% endfor %}
                     </div>
                 </div>

@@ -2,13 +2,13 @@ doc= {
     "url base": "api-titarte.herokuapp.com/",
     "topicos": {
         "Referencia API": "A API SuitTech esta organizada em REST. a API possui URLs orientada a recursos, \
-        aceitando solicitaÃ§Ãµes via JSON com o protocolo HTTP padrÃ£o, retornando respostas codificadas em JSON.",
-        "Autenticação": "Atualmente a API Ã© exclusiva para uso interno, desta forma a \
-        autenticaÃ§Ã£o para terceiros foi esta desabilitada.",
+        aceitando solicitações via JSON com o protocolo HTTP padrão, retornando respostas codificadas em JSON.",
+        "Autenticação": "Atualmente a API é exclusiva para uso interno, desta forma a \
+        autenticação para terceiros foi esta desabilitada.",
         "Respostas da API": {
-            "descricao": "Utilizamos as respostas do protocolo HTTP para indicar requisiÃ§Ãµes com falhas ou sucesso \
-                da nossa API. No geral os cÃ³digos que contÃ©m o range de -2xx- indicam que a requisiÃ§Ã£o foi feita com \
-                sucesso. JÃ¡ os de range -4xx- e -5xx- indicam um erro.",
+            "descricao": "Utilizamos as respostas do protocolo HTTP para indicar requisições com falhas ou sucesso \
+                da nossa API. No geral os códigos que contém o range de -2xx- indicam que a requisição foi feita com \
+                sucesso. Já os de range -4xx- e -5xx- indicam um erro.",
             "respostas": {
                 200: {
                     "descricao": "Solicitação interpretada com exito",
