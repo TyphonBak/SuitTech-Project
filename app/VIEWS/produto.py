@@ -2,29 +2,31 @@ from flask import Blueprint, jsonify, request
 
 bp_produto = Blueprint('bp_produto', __name__)
 
-@bp_produto.route('/produtos', methods=['GET'])
+@bp_produto.route('/api/produtos', methods=['GET'])
 def listar():
-    return jsonify([{}]), 200
+    # busca serviço - code, conteudo = listar_service()
+    return jsonify(conteudo), code
 
-@bp_produto.route('/produtos/<int:id>', methods=['GET'])
+@bp_produto.route('/api/produtos/<int:id>', methods=['GET'])
 def buscar(id):
-    #chama servico de busca
-    return jsonify('conteudo'), 900
+    # busca serviço - code, conteudo = buscar_service(id)
+    return jsonify(conteudo), code
 
-@bp_produto.route('/produtos', methods=['POST'])
+@bp_produto.route('/api/produtos', methods=['POST'])
 def criar():
     if not request.json:
         return jsonify(), 404
-    #chama servico, request.json
+    # busca serviço - code, conteudo = criar_service(request.json)
+    return jsonify(conteudo), code
 
-@bp_produto.route('/produtos/<int:id>', methods=['PUT'])
+@bp_produto.route('/api/produtos/<int:id>', methods=['PUT'])
 def alterar(id):
     if not request.json:
         return jsonify(), 404
-    #code, conteudo = chamaservico alterar
-    return jsonify('conteudo'), 900
+    # busca serviço - code, conteudo = alterar_service(request.json)
+    return jsonify(conteudo), code
 
-@bp_produto.route('/produtos/<int:id>', methods=['DELETE'])
+@bp_produto.route('/api/produtos/<int:id>', methods=['DELETE'])
 def deletar(id):
-    #code, conteudo = servico_alterar
-    return jsonify('conteudo'), 900
+    # busca serviço - code, conteudo = deletar_service(id)
+    return jsonify(conteudo), code
