@@ -12,6 +12,7 @@ pytest-cov = "*"
 flask-sqlalchemy = "*"
 python-dotenv = "*"
 factory-boy = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
