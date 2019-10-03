@@ -16,6 +16,8 @@ def buscar(id):
 @bp_cliente.route('/clientes', methods=['POST'])
 def criar():
     code, conteudo = criar_service(request.json)
+    if code == 400:
+        raise TypeError
     return jsonify(conteudo), code
 
 @bp_cliente.route('/clientes/<int:id>', methods=['PUT'])
@@ -27,3 +29,7 @@ def alterar(id):
 def deletar(id):
     code, conteudo = deletar_service(id)
     return jsonify(conteudo), code
+
+@bp_cliente.errorhandler(TypeError)
+def typehandler(error):
+    return jsonify('error'), 400

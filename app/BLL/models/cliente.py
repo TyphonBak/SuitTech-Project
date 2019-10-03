@@ -1,76 +1,45 @@
-class Cliente():
-    def __init__(self, nome, cpf, email, logradouro, cep, numero, cidade, estado, id=None):
-        self.id = id
+from app.extensions import db
+
+class Cliente(db.Model):
+    __tablename__ = 'cliente_tb'
+
+    clienteid = db.Column(db.Integer, primary_key=True)
+    cpf_cnpj = db.Column(db.Numeric(asdecimal=False, decimal_return_scale=None), unique=True)
+    nome = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
+    logradouro = db.Column(db.String)
+    cep = db.Column(db.Numeric(asdecimal=False, decimal_return_scale=None))
+    numero = db.Column(db.Numeric(asdecimal=False, decimal_return_scale=None))
+    cidade = db.Column(db.String)
+    uf  = db.Column(db.String)
+    telefone = db.Column(db.Numeric(asdecimal=False, decimal_return_scale=None))
+
+    def __init__(self, nome, cpf_cnpj, email, logradouro, cep, numero, cidade, uf, telefone, clienteid=None):
+        self.clienteid = clienteid
+        self.cpf_cnpj = cpf_cnpj
         self.nome = nome
-        self.cpf = cpf
         self.email = email
         self.logradouro = logradouro
         self.cep = cep  
         self.numero = numero
         self.cidade = cidade
-        self.estado = estado
-    
-    def atualizar(self, dados):
-        try:
-            nome = dados["nome"]
-            self.nome = nome 
-            cpf = dados['cpf'] 
-            self.cpf = cpf
-            email = dados['email'] 
-            self.email = email
-            logradouro = dados['logradouro']
-            self.logradouro = logradouro
-            cep = dados['cep']
-            self.cep = cep
-            numero = dados['numero']
-            self.numero = numero
-            cidade = dados['cidade']
-            self.cidade = cidade
-            estado = dados['estado']
-            self.estado = estado
-            return self, None
-        except Exception as e:
-            None, e
+        self.uf = uf
+        self.telefone = telefone
+
+    def __repr__(self):
+        return f'<id {self.clienteid}>'
         
-    def __dict__(self):
-        dados = dict()
-        dados['id'] = self.id
-        dados['nome'] = self.nome
-        dados['cpf'] = self.cpf 
-        dados['email'] = self.email 
-        dados['logradouro'] = self.logradouro 
-        dados['cep'] = self.cep
-        dados['numero'] = self.numero 
-        dados['cidade'] = self.cidade 
-        dados['estado'] = self.estado
+    def serialize(self):
+        return {
+            'clienteid': self.clienteid,
+            'nome': self.nome,
+            'cpf_cnpj': self.cpf_cnpj,
+            'email': self.email,
+            'logradouro': self.logradouro,
+            'cep': self.cep,
+            'numero': self.numero,
+            'cidade': self.cidade,
+            'uf': self.uf,
+            'telefone': self.telefone
+        }
         return dados
-
-    @staticmethod
-    def cria(dados):
-        try:
-            nome = dados["nome"] 
-            cpf = dados['cpf'] 
-            email = dados['email'] 
-            logradouro = dados['logradouro']
-            cep = dados['cep']
-            numero = dados['numero']
-            cidade = dados['cidade']
-            estado = dados['estado']
-            return Cliente(id=None, nome=nome, cpf=cpf, email=email, logradouro=logradouro, cep=cep, numero=numero, cidade=cidade, estado=estado), None
-        except Exception as e:
-            None, e
-
-    @staticmethod
-    def cria_de_tupla(dados):
-        try:
-            nome = dados[0]
-            cpf = dados[1]
-            email = dados[2]
-            logradouro = dados[3]
-            cep = dados[4]
-            numero = dados[5]
-            cidade = dados[6]
-            estado = dados[7]
-            return Cliente(id=id, nome=nome, cpf=cpf, email=email, logradouro=logradouro, cep=cep, numero=numero, cidade=cidade, estado=estado), None
-        except Exception as e:
-            None, e

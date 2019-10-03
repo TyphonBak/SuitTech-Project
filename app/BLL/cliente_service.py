@@ -2,46 +2,42 @@ from app.DAO.db_cliente import listar as listar_db, buscar as buscar_db, criar a
 from .models.cliente import Cliente
 
 def listar():
-    erro, lista = listar_db()
+    erro, clientes = listar_db()
     if erro:
         return 404, erro
-    return 200, lista
+    return 200, [cliente.serialize() for cliente in clientes]
 
 def buscar(id):
-    erro, cliente_tupla = buscar_db(id)
+    erro, cliente = buscar_db(id)
     if erro:
         return 400, erro
     try:
-        cliente = Cliente.cria_de_tupla(cliente_tupla)
         if cliente:
-            return 200, cliente.__dict__()
+            return 200, cliente.serialize()
         return 404, None
     except Exception as e:
         return 400, e
 
 def criar(dados):
     try:
-        cliente = Cliente.cria(dados)
-        erro, cliente_tupla = criar_db(cliente)
+        erro, cliente = criar_db(dados)
         if erro:
             return 400, erro
-        cliente = Cliente.cria_de_tupla(cliente_tupla)
         if cliente:
-            return 201, cliente.__dict__()
+            return 201, cliente.serialize()
         return 503, 'Database Unavailable'
     except Exception as e:
         return 400, e
 
 def alterar(id, dados):
     try:
-        cliente = Cliente.cria(dados)
-        erro, cliente_tupla = alterar_db(id, cliente)
+        dados['clienteid'] = id
+        erro, cliente = alterar_db(id, dados)
         if erro:
-            400, erro
-        cliente = Cliente.cria_de_tupla(cliente_tupla)
+            return 400, erro
         if cliente:
-            return 200, cliente.__dict__()
-        return 503, 'Database Unavailable'
+            return 200, cliente.serialize()
+        return 404, 'Cliente não encontrado'
     except Exception as e:
         return 400, e
 
@@ -52,6 +48,6 @@ def deletar(id):
             return 404, erro
         elif reposta:
             return 204, 'No Content'
-        return 503, 'Database Unavailable'
+        return 404, 'Referencia não existente'
     except Exception as e:
         return 400, e
