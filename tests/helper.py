@@ -1,9 +1,22 @@
 import pytest
+from app.extensions import db
 from app import create_app
-from wsgi import app
 
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def client():
+    app = create_app()
+
     app.config['TESTING'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testdatabase'
+    db.init_app(app)
+
     cliente_teste = app.test_client()
-    return cliente_teste
+    db.create_all()
+
+    ctx = app.app_context()
+    ctx.push()
+    
+    yield cliente_teste
+
+    db.drop_all()
+    ctx.pop()
