@@ -1,53 +1,53 @@
 from app.extensions import db
-from app.BLL.models.cliente import Cliente
+from app.BLL.models.produto import Produto
 
 def listar():
     try:
-        clientes = Cliente.query.all()
-        return None, clientes
+        produtos = Produto.query.all()
+        return None, produtos
     except Exception as e:
         return e, []
 
 def buscar(id):
     try:
-        cliente = Cliente.query.get(id)
-        if not isinstance(cliente, Cliente):
+        produto = Produto.query.get(id)
+        if not isinstance(produto, Produto):
             return None, None
-        return None, cliente
+        return None, produto
     except Exception as e:
         return e, None
 
 def criar(dados):
     try:
-        cliente = Cliente(**dados)
-        db.session.add(cliente)
+        produto = Produto(**dados)
+        db.session.add(produto)
         db.session.commit()
-        return None, cliente
+        return None, produto
     except Exception as e:
         db.session.rollback()
         return str(e.__dict__.get('orig')), None
 
 def alterar(id, dados):
     try:
-        _query = Cliente.query.filter_by(clienteid=id)
-        cliente = _query.first()
-        if not isinstance(cliente, Cliente):
+        _query = Produto.query.filter_by(produtoid=id)
+        produto = _query.first()
+        if not isinstance(produto, Produto):
             return None, None
         _query.update(dados)
         db.session.commit()
-        return None, cliente
+        return None, produto
     except Exception as e:
         db.session.rollback()
         return str(e), None
 
 def deletar(id):
     try:
-        cliente = Cliente.query.get(id)
-        if not isinstance(cliente, Cliente):
+        produto = Produto.query.get(id)
+        if not isinstance(produto, Produto):
             return None, None
-        db.session.delete(cliente)
+        db.session.delete(produto)
         db.session.commit()
-        return None, cliente
+        return None, produto
     except Exception as e:
         db.session.rollback()
         return e, None

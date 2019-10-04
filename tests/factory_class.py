@@ -22,7 +22,7 @@ class ProdutoFactory(factory.Factory):
     class Meta:
         model = Produto
 
-    categoria = factory.Faker('word', locale='pt_BR')
+    categoriaID = factory.Faker('pyint', min_value=1)
     nome = factory.Faker('name', locale='pt_BR')
     peso = factory.Faker('numerify', text='##.##')
     altura = factory.Faker('numerify', text='##.##')
@@ -32,7 +32,7 @@ class ProdutoFactory(factory.Factory):
     precoCusto = factory.Faker('pyfloat', right_digits=2, min_value=1, max_value=1000)
     precoVendaVarejo = factory.Faker('pyfloat', right_digits=2, min_value=1, max_value=1000)
     precoVendaAtacado = factory.Faker('pyfloat', right_digits=2, min_value=1, max_value=1000)
-    impostos = factory.Faker('pyint', min_value=1, max_value=50)
+    imposto = factory.Faker('pyint', min_value=1, max_value=50)
     estoque = factory.Faker('pyint', min_value=1, max_value=10)
     descricao = factory.Faker('sentence')
 
@@ -47,5 +47,6 @@ class VendedorFactory(factory.Factory):
     class Meta:
         model = Vendedor
 
-    cpf = factory.Faker('numerify', text='###.###.###-##')
+    nome = factory.Faker('name', locale='pt_BR')
+    cpf = factory.Faker('numerify', text='###########')
     email = factory.Faker('email', locale='pt_BR')
