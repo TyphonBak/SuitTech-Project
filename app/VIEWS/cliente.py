@@ -3,7 +3,7 @@ from app.BLL.cliente_service import listar as listar_service, buscar as buscar_s
 
 bp_cliente = Blueprint('bp_cliente', __name__)
 
-@bp_cliente.route('/clientes')
+@bp_cliente.route('/clientes', methods=['GET'])
 def listar():
     code, conteudo = listar_service()
     return jsonify(conteudo), code
@@ -32,4 +32,4 @@ def deletar(id):
 
 @bp_cliente.errorhandler(TypeError)
 def typehandler(error):
-    return jsonify('error'), 400
+    return jsonify({'error': 'error'}), 400
