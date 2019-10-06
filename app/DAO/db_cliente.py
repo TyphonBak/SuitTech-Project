@@ -4,6 +4,7 @@ from app.BLL.models.cliente import Cliente
 def listar():
     try:
         clientes = Cliente.query.all()
+        print('Esses clientes... ', clientes)
         return None, clientes
     except Exception as e:
         return e, []
