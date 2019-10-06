@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 from .extensions import db
 from flask_sqlalchemy import SQLAlchemy
@@ -20,7 +20,7 @@ def create_app(config_file='settings.py'):
     app.register_blueprint(bp_produto)
     app.register_blueprint(bp_venda)
     app.register_blueprint(bp_doc)
-    
+
     @app.errorhandler(TypeError)
     def typehandler(error):
         return jsonify({'error': 'error'}), 400
