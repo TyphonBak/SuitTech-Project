@@ -29,7 +29,3 @@ def alterar(id):
 def deletar(id):
     code, conteudo = deletar_service(id)
     return jsonify(conteudo), code
-
-@bp_cliente.errorhandler(TypeError)
-def typehandler(error):
-    return jsonify({'error': 'error'}), 400
