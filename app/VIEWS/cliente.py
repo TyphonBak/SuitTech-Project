@@ -3,29 +3,29 @@ from app.BLL.cliente_service import listar as listar_service, buscar as buscar_s
 
 bp_cliente = Blueprint('bp_cliente', __name__)
 
-@bp_cliente.route('/clientes', methods=['GET'])
+@bp_cliente.route('/api/clientes', methods=['GET'])
 def listar():
     code, conteudo = listar_service()
     return jsonify(conteudo), code
 
-@bp_cliente.route('/clientes/<int:id>', methods=['GET'])
+@bp_cliente.route('/api/clientes/<int:id>', methods=['GET'])
 def buscar(id):
     code, conteudo = buscar_service(id)
     return jsonify(conteudo), code
 
-@bp_cliente.route('/clientes', methods=['POST'])
+@bp_cliente.route('/api/clientes', methods=['POST'])
 def criar():
     code, conteudo = criar_service(request.json)
     if code == 400:
         raise TypeError
     return jsonify(conteudo), code
 
-@bp_cliente.route('/clientes/<int:id>', methods=['PUT'])
+@bp_cliente.route('/api/clientes/<int:id>', methods=['PUT'])
 def alterar(id):
     code, conteudo = alterar_service(id, request.json)
     return jsonify(conteudo), code
 
-@bp_cliente.route('/clientes/<int:id>', methods=['DELETE'])
+@bp_cliente.route('/api/clientes/<int:id>', methods=['DELETE'])
 def deletar(id):
     code, conteudo = deletar_service(id)
     return jsonify(conteudo), code
