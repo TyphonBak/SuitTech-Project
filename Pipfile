@@ -15,6 +15,7 @@ factory-boy = "*"
 gunicorn = "*"
 psycopg2 = "*"
 psycopg2-binary = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
