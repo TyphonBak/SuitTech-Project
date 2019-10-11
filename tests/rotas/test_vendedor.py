@@ -8,30 +8,26 @@ class TestVendedor:
     def test_deve_retornar_201_e_objeto_criado_com_id_quando_usado_metodo_post_com_playload_correto(self, client):
 
         vendedor = VendedorFactory.build()
-        retorno = client.post("/vendedor", json=vendedor.__dict__())
+        retorno = client.post("/api/vendedores", json=vendedor.serialize())
 
         assert 201 == retorno.status_code
-        assert vendedor.__dict__().keys() in retorno.json.keys()
-        assert "id" in retorno.json.keys()
+        assert set(vendedor.serialize().keys()) and set(retorno.json.keys())
+        assert "vendedorid" in retorno.json.keys()
     
     def test_deve_retornar_400_quando_usado_metodo_post_com_payload_incorreto(self, client):
 
-        vendedor = VendedorFactory.build()
         vendedor2 = VendedorFactory.build()
-        vendedor2.idVendedor = 'Sete'
+        vendedor2.cpf = 'Sete'
 
-        retorno = client.post("/vendedor", json=vendedor.__dict__())
-        retorno2 = client.post("/vendedor", json=vendedor2.__dict__())
+        retorno2 = client.post("/api/vendedores", json=vendedor2.serialize())
 
-        assert 400 == retorno.status_code
         assert 400 == retorno2.status_code
-        assert 'errors' in retorno.json
-        assert 'errors' in retorno2.json
+        assert 'Sete' in retorno2.json
 
     #GET
     def test_deve_retornar_200_e_lista_de_vendedor(self, client):
         
-        retorno = client.get('/vendedor')
+        retorno = client.get('/api/vendedores')
 
         assert 200 == retorno.status_code
         assert isinstance(retorno.json, list)
@@ -40,15 +36,15 @@ class TestVendedor:
 
         vendedor = VendedorFactory.build()
         
-        client.post('/vendedor', json=vendedor.__dict__())
-        retorno = client.get('/vendedor/1')
+        client.post('/api/vendedores', json=vendedor.serialize())
+        retorno = client.get('/api/vendedores/1')
 
         assert retorno.status_code == 200
-        assert retorno.json.keys()==vendedor.__dict__().keys()
+        assert retorno.json.keys()==vendedor.serialize().keys()
 
     def test_deve_retornar_404_quando_for_buscado_um_id_inexistente(self, client):
         
-        retorno = client.get("/vendedor/99999")
+        retorno = client.get("/api/vendedores/99999")
 
         assert 404 == retorno.status_code
 
@@ -58,27 +54,27 @@ class TestVendedor:
         vendedor = VendedorFactory.build()
         valores_a_alterar = VendedorFactory.build()
 
-        vendedor_criada = client.post("/vendedor", json=vendedor.__dict__())
-        retorno = client.put(f"/vendedor/{vendedor_criada.id}", json=valores_a_alterar.__dict__())
+        vendedor_criada = client.post("/api/vendedores", json=vendedor.serialize()).json
+        retorno = client.put(f"/api/vendedores/{vendedor_criada.get('vendedorid')}", json=valores_a_alterar.serialize())
 
         assert 200 == retorno.status_code
-        assert vendedor_criada.keys() in retorno.json
+        assert valores_a_alterar.nome == retorno.json.get('nome')
 
     def test_deve_retornar_400_quando_tipos_invalidos_forem_enviados(self, client):
 
         vendedor = VendedorFactory.build()
         valores_a_alterar = VendedorFactory.build()
-        valores_a_alterar.idVendedor = 'Sete'
+        valores_a_alterar.cpf = 'Sete'
 
-        vendedor_criada = client.post("/vendedor", json=vendedor.__dict__())
-        retorno = client.put(f"/vendedor/{vendedor_criada.id}", json=valores_a_alterar.__dict__())
+        vendedor_criada = client.post("/api/vendedores", json=vendedor.serialize()).json
+        retorno = client.put(f"/api/vendedores/{vendedor_criada.get('vendedorid')}", json=valores_a_alterar.serialize())
 
         assert 400 == retorno.status_code
-        assert 'errors' in retorno.json
+        assert 'Sete' in retorno.json
 
     def test_deve_retornar_404_quando_id_a_alterar_nao_existir(self, client):
 
-        retorno = client.put("/vendedor/999999999", json={})
+        retorno = client.put("/api/vendedores/999999999", json={})
 
         assert 404 == retorno.status_code
 
@@ -87,13 +83,13 @@ class TestVendedor:
 
         vendedor = VendedorFactory.build()
 
-        vendedor_criada = client.post("/vendedor", json=vendedor)        
-        retorno = client.delete(f"/vendedor/{vendedor_criada.id}")
+        vendedor_criada = client.post("/api/vendedores", json=vendedor.serialize()).json
+        retorno = client.delete(f"/api/vendedores/{vendedor_criada.get('vendedorid')}")
 
         assert 204 == retorno.status_code
 
     def test_deve_retornar_404_quando_id_deletado_nao_existir(self, client):
 
-        retorno = client.delete("/vendedor/999999999")
+        retorno = client.delete("/api/vendedores/999999999")
 
         assert 404 == retorno.status_code

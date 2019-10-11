@@ -42,4 +42,3 @@ class Cliente(db.Model):
             'uf': self.uf,
             'telefone': self.telefone
         }
-        return dados

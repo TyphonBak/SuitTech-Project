@@ -11,7 +11,7 @@ def client():
     db.init_app(app)
 
     cliente_teste = app.test_client()
-    db.create_all()
+    db.create_all(app=app)
 
     ctx = app.app_context()
     ctx.push()

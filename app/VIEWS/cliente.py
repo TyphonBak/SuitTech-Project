@@ -16,8 +16,6 @@ def buscar(id):
 @bp_cliente.route('/api/clientes', methods=['POST'])
 def criar():
     code, conteudo = criar_service(request.json)
-    if code == 400:
-        raise TypeError
     return jsonify(conteudo), code
 
 @bp_cliente.route('/api/clientes/<int:id>', methods=['PUT'])

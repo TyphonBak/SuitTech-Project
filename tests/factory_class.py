@@ -22,17 +22,17 @@ class ProdutoFactory(factory.Factory):
     class Meta:
         model = Produto
 
-    categoriaID = factory.Faker('pyint', min_value=1)
+    categoriaid = factory.Faker('pyint', min_value=1)
     nome = factory.Faker('name', locale='pt_BR')
     peso = factory.Faker('numerify', text='##.##')
     altura = factory.Faker('numerify', text='##.##')
     largura = factory.Faker('numerify', text='##.##')
     cor = factory.Faker('color_name', locale='pt_BR')
     material = factory.Faker('word', locale='pt_BR')
-    precoCusto = factory.Faker('pyfloat', right_digits=2, min_value=1, max_value=1000)
-    precoVendaVarejo = factory.Faker('pyfloat', right_digits=2, min_value=1, max_value=1000)
-    precoVendaAtacado = factory.Faker('pyfloat', right_digits=2, min_value=1, max_value=1000)
-    imposto = factory.Faker('pyint', min_value=1, max_value=50)
+    precocusto = factory.Faker('pyfloat', right_digits=2, min_value=1, max_value=1000)
+    precovendavarejo = factory.Faker('pyfloat', right_digits=2, min_value=1, max_value=1000)
+    precovendaatacado = factory.Faker('pyfloat', right_digits=2, min_value=1, max_value=1000)
+    imposto = factory.Faker('numerify', text='##.##')
     estoque = factory.Faker('pyint', min_value=1, max_value=10)
     descricao = factory.Faker('sentence')
 
