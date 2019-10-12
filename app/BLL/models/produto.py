@@ -1,6 +1,6 @@
 from app.extensions import db
 
-class Produto():
+class Produto(db.Model):
     __tablename__ = 'produto_tb'
 
     produtoid = db.Column(db.Integer, primary_key=True)
@@ -36,7 +36,7 @@ class Produto():
         self.descricao = descricao
 
     def __repr__(self):
-        return f'<id {self.clienteid}>'
+        return f'<id {self.produtoid}>'
 
     def serialize(self):
         return {
