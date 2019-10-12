@@ -61,7 +61,7 @@ doc= {
         }
     },
     "rotas": {
-        "/produtos": {
+        "/api/produtos": {
             "GET": {
                 "descricao": "Este objeto permite executar uma requisição para consultar uma lista de produtos.",
                 "pacote": None,
@@ -81,7 +81,7 @@ doc= {
                 }
             }
         },
-        "/produtos/id": {
+        "/api/produtos/id": {
             "GET": {
                 "descricao": "Este Objeto permite executar uma requisição para consultar um único produto.",
                 "pacote": None,
@@ -110,7 +110,7 @@ doc= {
                 }
             }
         },
-        "/clientes": {
+        "/api/clientes": {
             "GET": {
                 "descricao": "Este objeto permite executar uma requisição para consultar uma lista de clientes.",
                 "pacote": None,
@@ -130,7 +130,7 @@ doc= {
                 }
             }
         },
-        "/clientes/id" : {
+        "/api/clientes/id" : {
             "GET": {
                 "descricao": "Este Objeto permite executar uma requisição para consultar um único cliente.",
                 "pacote": None,
@@ -162,7 +162,7 @@ doc= {
                 }
             }
         },
-        "/vendas": {
+        "/api/vendas": {
             "GET": {
                 "descricao": "Este objeto permite executar uma requisição para consultar uma lista de vendas.",
                 "pacote": None,
@@ -182,7 +182,7 @@ doc= {
                 }
             }
         },
-        "/vendas/id" : {
+        "/api/vendas/id" : {
             "GET": {
                 "descricao": "Este Objeto permite executar uma requisição para consultar um único venda.",
                 "pacote": None,
@@ -214,7 +214,7 @@ doc= {
                 }
             }
         },
-        "/vendedores": {
+        "/api/vendedores": {
             "GET": {
                 "descricao": "Este objeto permite executar uma requisição para consultar uma lista de vendedores.",
                 "pacote": None,
@@ -234,7 +234,7 @@ doc= {
                 }
             }
         },
-        "/vendedores/id" : {
+        "/api/vendedores/id" : {
             "GET": {
                 "descricao": "Este Objeto permite executar uma requisição para consultar uma lista de vendedores.",
                 "pacote": None,
