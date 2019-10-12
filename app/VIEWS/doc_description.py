@@ -1,9 +1,13 @@
 from tests.factory_class import ProdutoFactory, ClienteFactory, VendaFactory, VendedorFactory
 
-produto_sample = ProdutoFactory.build().serialize()
+produto_obj = ProdutoFactory.build()
+produto_sample = produto_obj.serialize()
+produto_sample_min = produto_obj.serialize_min()
 produto_sample['produtoid'] = 1
 produto_id = {'produtoid': produto_sample.pop('produtoid', None)}
-cliente_sample = ClienteFactory.build().serialize()
+cliente_obj = ClienteFactory.build()
+cliente_sample = cliente_obj.serialize()
+cliente_sample_min = cliente_obj.serialize_min()
 cliente_sample['clienteid'] = 1
 cliente_id = {'clienteid': cliente_sample.pop('clienteid', None)}
 venda_sample = VendaFactory.build().serialize()
@@ -67,7 +71,7 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": [{**produto_id, **produto_sample}],
+                    "exemplo": [{**produto_id, **produto_sample_min}],
                     "descricao": "Lista de produtos simplificados"
                 }
             },
@@ -116,7 +120,7 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": [{**cliente_id, **cliente_sample}],
+                    "exemplo": [{**cliente_id, **cliente_sample_min}],
                     "descricao": "Esta requisição retornará apenas as informações principais como ID, nome e e-mail."
                 }
             },
