@@ -5,7 +5,7 @@ def listar():
     erro, clientes = listar_db()
     if erro:
         return 404, erro
-    return 200, [cliente.serialize() for cliente in clientes]
+    return 200, [cliente.serialize_min() for cliente in clientes]
 
 def buscar(id):
     erro, cliente = buscar_db(id)
