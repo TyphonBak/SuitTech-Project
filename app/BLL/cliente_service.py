@@ -20,7 +20,7 @@ def buscar(id):
 
 def criar(dados):
     try:
-        erro, cliente = criar_db(dados)
+        erro, cliente = criar_db(**dados)
         if erro:
             return 400, erro
         if cliente:
