@@ -1,3 +1,18 @@
+from tests.factory_class import ProdutoFactory, ClienteFactory, VendaFactory, VendedorFactory
+
+produto_sample = ProdutoFactory.build().serialize()
+produto_sample['produtoid'] = 1
+produto_id = {'produtoid': produto_sample.pop('produtoid', None)}
+cliente_sample = ClienteFactory.build().serialize()
+cliente_sample['clienteid'] = 1
+cliente_id = {'clienteid': cliente_sample.pop('clienteid', None)}
+venda_sample = VendaFactory.build().serialize()
+venda_sample['vendaid'] = 1
+venda_id = {'vendaid': venda_sample.pop('vendaid', None)}
+vendedor_sample = VendedorFactory.build().serialize()
+vendedor_sample['vendedorid'] = 1
+vendedor_id = {'vendedorid': vendedor_sample.pop('vendedorid', None)}
+
 doc= {
     "url base": "api-titarte.herokuapp.com/",
     "topicos": {
@@ -52,35 +67,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": [{
-                      'id': '245',
-                      'categoria': 'Caixa MDF',
-                      'nome': 'Caixa Decorada Blevers',
-                      'img_url': 'imgur.com/imglink'
-                    }],
+                    "exemplo": [{**produto_id, **produto_sample}],
                     "descricao": "Lista de produtos simplificados"
                 }
             },
             "POST": {
                 "descricao": "Este objeto permite criar um novo produto dentro do banco de dados.",
-                "pacote": {
-                      'categoria': 'Caixa MDF',
-                      'nome': 'Caixa Decorada Blevers',
-                      'peso': 1.05,
-                      'altura': 0.20,
-                      'largura': 0.60,
-                      'cor_predominante': 'Laranja',
-                      'material': 'Madeira',
-                      'precoCusto': 12.00,
-                      'precoVendaVarejo': 25.00,
-                      'precoVendaAtacado': 22.00,
-                      'impostos': 5,
-                      'estoque': 5,
-                      'descricao': 'Caixa de mdf decorada a mão.' 
-                    },
+                "pacote": produto_sample,
                 "retorno": {
                     "code": 201,
-                    "exemplo": {},
+                    "exemplo": {**produto_id, **produto_sample},
                     "descricao": "Caracteristicas do produto consolidadas."
                 }
             }
@@ -91,60 +87,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": {
-                        'id': 123,
-                        'categoria': 'Caixa MDF',
-                        'nome': 'Caixa Decorada Blevers',
-                        'peso': 1.05,
-                        'altura': 0.20,
-                        'largura': 0.60,
-                        'cor_predominante': 'Laranja',
-                        'material': 'Madeira',
-                        'precoCusto': 12.00,
-                        'precoVendaVarejo': 25.00,
-                        'precoVendaAtacado': 22.00,
-                        'impostos': 5,
-                        'estoque': 5,
-                        'descricao': 'Caixa de mdf decorada a mão.' 
-                    },
+                    "exemplo": {**produto_id, **produto_sample},
                     "descricao": "Caracteristicas do produto consolidadas."
                 }
             },
             "PUT": {
                 "descricao": "Este objeto permite realizar alterações de um produto dentro do banco de dados.",
-                "pacote": {
-                    'categoria': 'Caixa MDF',
-                    'nome': 'Caixa Decorada Blevers',
-                    'peso': 1.05,
-                    'altura': 0.20,
-                    'largura': 0.60,
-                    'cor_predominante': 'Laranja',
-                    'material': 'Madeira',
-                    'precoCusto': 12.00,
-                    'precoVendaVarejo': 25.00,
-                    'precoVendaAtacado': 22.00,
-                    'impostos': 5,
-                    'estoque': 5,
-                    'descricao': 'Caixa de mdf decorada a mão.' 
-                },
+                "pacote": produto_sample,
                 "retorno": {
                     "code": 200,
-                    "exemplo": {
-                      'id': 123,
-                      'categoria': 'Caixa MDF',
-                      'nome': 'Caixa Decorada Blevers',
-                      'peso': 1.05,
-                      'altura': 0.20,
-                      'largura': 0.60,
-                      'cor_predominante': 'Laranja',
-                      'material': 'Madeira',
-                      'precoCusto': 12.00,
-                      'precoVendaVarejo': 25.00,
-                      'precoVendaAtacado': 22.00,
-                      'impostos': 5,
-                      'estoque': 5,
-                      'descricao': 'Caixa de mdf decorada a mão.' 
-                    },
+                    "exemplo": {**produto_id, **produto_sample},
                     "descricao": "Caracteristicas do produto consolidadas."
                 }
             },
@@ -164,39 +116,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": [{
-                      'id': 23,
-                      'nome': 'Fernando Napoli',
-                      'email': 'fernando@email.com'
-                    }],
+                    "exemplo": [{**cliente_id, **cliente_sample}],
                     "descricao": "Esta requisição retornará apenas as informações principais como ID, nome e e-mail."
                 }
             },
             "POST": {
                 "descricao": "Este objeto permite criar um novo cliente dentro do banco de dados.",
-                "pacote": {
-                      'nome': 'Fernando Napoli',
-                      'cpf': '12345678912',
-                      'email': 'fernando@email.com',
-                      'logradouro': 'Rua Ontem não é hoje',
-                      'cep': '01234678',
-                      'numero': '123',
-                      'cidade': 'São Paulo',
-                      'estado': 'São Paulo'
-                    },
+                "pacote": cliente_sample,
                 "retorno": {
                     "code": 201,
-                    "exemplo": {
-                      'id': 23,
-                      'nome': 'Fernando Napoli',
-                      'cpf': '12345678912',
-                      'email': 'fernando@email.com',
-                      'logradouro': 'Rua Ontem não é hoje',
-                      'cep': '01234678',
-                      'numero': '123',
-                      'cidade': 'São Paulo',
-                      'estado': 'São Paulo'
-                    },
+                    "exemplo": {**cliente_id, **cliente_sample},
                     "descricao": "Caracteristicas de clientes consolidadas."
                 }
             }
@@ -207,17 +136,7 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": {
-                        'id': 23,
-                        'nome': 'Fernando Napoli',
-                        'cpf': '12345678912',
-                        'email': 'fernando@email.com',
-                        'logradouro': 'Rua Ontem não é hoje',
-                        'cep': '01234678',
-                        'numero': '123',
-                        'cidade': 'São Paulo',
-                        'estado': 'São Paulo'
-                    },
+                    "exemplo": {**cliente_id, **cliente_sample},
                     "descricao": "Caracteristicas do cliente consolidadas."
                 }
             },
@@ -225,30 +144,11 @@ doc= {
                 "descricao": "Este objeto permite realizar alterações de um cliente do banco de dados.",
                 "pacote": {
                     "code": 200,
-                    "exemplo": {
-                        'nome': 'Fernando Napoli',
-                        'cpf': '12345678912',
-                        'email': 'fernando@email.com',
-                        'logradouro': 'Rua Ontem não é hoje',
-                        'cep': '01234678',
-                        'numero': '123',
-                        'cidade': 'São Paulo',
-                        'estado': 'São Paulo'
-                    }
+                    "exemplo": cliente_sample
                 },
                 "retorno": {
                     "code": 200,
-                    "exemplo": {
-                        'id': 23,
-                        'nome': 'Fernando Napoli',
-                        'cpf': '12345678912',
-                        'email': 'fernando@email.com',
-                        'logradouro': 'Rua Ontem não é hoje',
-                        'cep': '01234678',
-                        'numero': '123',
-                        'cidade': 'São Paulo',
-                        'estado': 'São Paulo'
-                    },
+                    "exemplo": {**cliente_id, **cliente_sample},
                     "descricao": "Caracteristicas do cliente consolidadas."
                 }
             },
@@ -268,27 +168,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": [{
-                      'id': 24,
-                      'idVendedor': 1,
-                      'idCliente': 57
-                    }],
+                    "exemplo": [{**venda_id, **venda_sample}],
                     "descricao": "Lista de vendas"
                 }
             },
             "POST": {
                 "descricao": "Este objeto permite criar um nova venda dentro do banco de dados.",
-                "pacote": {
-                      'idVendedor': 1,
-                      'idCliente': 57
-                    },
+                "pacote": venda_sample,
                 "retorno": {
                     "code": 201,
-                    "exemplo": {
-                      'id': 24,
-                      'idVendedor': 1,
-                      'idCliente': 57
-                    },
+                    "exemplo": {**venda_id, **venda_sample},
                     "descricao": "Caracteristicas da venda consolidada."
                 }
             }
@@ -299,11 +188,7 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": {
-                      'id': 24,
-                      'idVendedor': 1,
-                      'idCliente': 57
-                    },
+                    "exemplo": {**venda_id, **venda_sample},
                     "descricao": "Caracteristicas do venda consolidadas."
                 }
             },
@@ -315,11 +200,7 @@ doc= {
                     },
                 "retorno": {
                     "code": 200,
-                    "exemplo": {
-                      'id': 24,
-                      'idVendedor': 1,
-                      'idCliente': 57
-                    },
+                    "exemplo": {**venda_id, **venda_sample},
                     "descricao": "Caracteristicas da venda consolidada."
                 }
             },
@@ -339,30 +220,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": [{
-                      'id': 3,
-                      'nome': 'Napoli Fernando',
-                      'cpf': '12345678912',
-                      'email': 'napoli@email.com'
-                    }],
+                    "exemplo": [{**vendedor_id, **vendedor_sample}],
                     "descricao": "Lista de vendedores"
                 }
             },
             "POST": {
                 "descricao": "Este objeto permite criar um novo vendedor dentro do banco de dados.",
-                "pacote": {
-                      'nome': 'Napoli Fernando',
-                      'cpf': '12345678912',
-                      'email': 'napoli@email.com'
-                    },
+                "pacote": vendedor_sample,
                 "retorno": {
                     "code": 201,
-                    "exemplo": {
-                      'id': 3,
-                      'nome': 'Napoli Fernando',
-                      'cpf': '12345678912',
-                      'email': 'napoli@email.com'
-                    },
+                    "exemplo": {**vendedor_id, **vendedor_sample},
                     "descricao": "Caracteristicas da vendedor consolidadas."
                 }
             }
@@ -373,30 +240,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": {
-                      'id': 3,
-                      'nome': 'Napoli Fernando',
-                      'cpf': '12345678912',
-                      'email': 'napoli@email.com'
-                    },
+                    "exemplo": {**vendedor_id, **vendedor_sample},
                     "descricao": "Caracteristicas dos vendedores consolidadas."
                 }
             },
             "PUT": {
                 "descricao": "Este objeto permite realizar alterações de um vendedor dentro do banco de dados.",
-                "pacote": {
-                    'nome': 'Napoli Fernando',
-                    'cpf': '12345678912',
-                    'email': 'napoli@email.com'
-                },
+                "pacote": vendedor_sample,
                 "retorno": {
                     "code": 200,
-                    "exemplo": {
-                      'id': 3,
-                      'nome': 'Napoli Fernando',
-                      'cpf': '12345678912',
-                      'email': 'napoli@email.com'
-                    },
+                    "exemplo": {**vendedor_id, **vendedor_sample},
                     "descricao": "Caracteristicas do vendedor consolidada."
                 }
             },
