@@ -55,3 +55,10 @@ class Produto():
             'estoque': self.estoque,
             'descricao': self.descricao
         }
+
+    def serialize_min(self):
+        return {
+            'produtoid': self.produtoid,
+            'nome': self.nome,
+            'categoriaid': self.categoriaid
+        }

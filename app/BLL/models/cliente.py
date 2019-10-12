@@ -42,3 +42,10 @@ class Cliente(db.Model):
             'uf': self.uf,
             'telefone': self.telefone
         }
+
+    def serialize_min(self):
+        return {
+            'clienteid': self.clienteid,
+            'nome': self.nome,
+            'email': self.email
+        }
