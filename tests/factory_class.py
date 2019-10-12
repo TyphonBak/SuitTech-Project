@@ -40,8 +40,8 @@ class VendaFactory(factory.Factory):
     class Meta:
         model = Venda
 
-    idVendedor = factory.Faker('pyint', max_value=5000)
-    idCliente = factory.Faker('pyint', max_value=5000)
+    vendedorid = factory.Faker('pyint', max_value=5000)
+    clienteid = factory.Faker('pyint', max_value=5000)
 
 class VendedorFactory(factory.Factory):
     class Meta:
