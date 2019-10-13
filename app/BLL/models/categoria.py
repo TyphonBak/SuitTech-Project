@@ -3,8 +3,10 @@ from app.extensions import db
 class Categoria(db.Model):
     __tablename__ = 'categoria_tb'
 
-    categoriaid = db.Column(db.Integer)
+    categoriaid = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String)
+
+    
 
     def __init__(self, nome, categoriaid=None):
         self.categoriaid = categoriaid

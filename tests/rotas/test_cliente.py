@@ -8,7 +8,6 @@ class TestCliente:
     def test_deve_retornar_201_e_objeto_criado_com_id_quando_usado_metodo_post_com_playload_correto(self, client):
 
         cliente = ClienteFactory.build()
-        import pdb; pdb.set_trace()
         retorno = client.post("/api/clientes", json=cliente.serialize())
 
         assert 201 == retorno.status_code

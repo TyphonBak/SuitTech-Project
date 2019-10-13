@@ -4,7 +4,7 @@ class Produto(db.Model):
     __tablename__ = 'produto_tb'
 
     produtoid = db.Column(db.Integer, primary_key=True)
-    categoriaid = db.Column(db.Integer)
+    categoriaid = db.Column(db.Integer, db.ForeignKey('categoria_tb.categoriaid'))
     nome = db.Column(db.String)
     peso = db.Column(db.Numeric(asdecimal=False, decimal_return_scale=None))
     altura = db.Column(db.Numeric(asdecimal=False, decimal_return_scale=None))
@@ -17,6 +17,8 @@ class Produto(db.Model):
     imposto = db.Column(db.Numeric(asdecimal=False, decimal_return_scale=None))
     estoque = db.Column(db.Integer)
     descricao = db.Column(db.String)
+
+    categoria = db.relationship('Categoria', backref="produto_tb")
 
 
     def __init__(self, categoriaid, nome, peso, altura, largura, cor, material, precocusto, precovendavarejo, precovendaatacado, imposto, estoque, descricao, produtoid=None):
@@ -56,6 +58,27 @@ class Produto(db.Model):
             'descricao': self.descricao
         }
 
+    def serialize_repr(self):
+        return {
+            'produtoid': self.produtoid,
+            'categoria': {
+                'categoriaid': self.categoriaid,
+                'nome': self.categoria.nome
+            },
+            'nome': self.nome ,
+            'peso': self.peso ,
+            'altura': self.altura ,
+            'largura': self.largura,
+            'cor': self.cor ,
+            'material': self.material ,
+            'precocusto': self.precocusto,
+            'precovendavarejo': self.precovendavarejo,
+            'precovendaatacado': self.precovendaatacado,
+            'imposto': self.imposto ,
+            'estoque': self.estoque,
+            'descricao': self.descricao
+        }
+        
     def serialize_min(self):
         return {
             'produtoid': self.produtoid,

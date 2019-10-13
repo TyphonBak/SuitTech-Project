@@ -1,16 +1,17 @@
 from app.extensions import db
 from app.BLL.models.produto import Produto
+from app.BLL.models.categoria import Categoria
 
 def listar():
     try:
-        produtos = Produto.query.all()
+        produtos = Produto.query.join(Categoria).all()
         return None, produtos
     except Exception as e:
         return e, []
 
 def buscar(id):
     try:
-        produto = Produto.query.get(id)
+        produto = Produto.query.join(Categoria).filter(Produto.produtoid==id).first()
         if not isinstance(produto, Produto):
             return None, None
         return None, produto

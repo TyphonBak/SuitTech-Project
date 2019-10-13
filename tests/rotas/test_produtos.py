@@ -1,7 +1,7 @@
 import pytest
+from app.extensions import db
 from tests.helper import client
 from tests.factory_class import ProdutoFactory
-#importar Produto
 
 class TestProduto:
     #POST
