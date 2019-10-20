@@ -1,4 +1,6 @@
+import copy
 import pytest
+from os import environ
 from app.extensions import db
 from app import create_app
 
@@ -7,7 +9,7 @@ def client():
     app = create_app()
 
     app.config['TESTING'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testdatabase'
+    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('TEST_URL')
     db.init_app(app)
 
     cliente_teste = app.test_client()
@@ -20,3 +22,8 @@ def client():
 
     db.drop_all()
     ctx.pop()
+
+def copia_sem_sa_instance(dicionario):
+    dici_copy = copy.deepcopy(dicionario)
+    dici_copy.pop('_sa_instance_state', None)
+    return dici_copy

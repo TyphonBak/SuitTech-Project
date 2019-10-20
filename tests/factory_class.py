@@ -4,6 +4,7 @@ from app.BLL.models.produto import Produto
 from app.BLL.models.venda import Venda
 from app.BLL.models.vendedor import Vendedor
 from app.BLL.models.categoria import Categoria
+from app.BLL.models.produto_venda import ProdutoVenda
 
 class ClienteFactory(factory.Factory):
     class Meta:
@@ -57,3 +58,11 @@ class CategoriaFactory(factory.Factory):
         model = Categoria
 
     nome = factory.Faker('name', locale='pt_BR')
+
+class ProdutoVendaFactory(factory.Factory):
+    class Meta:
+        model = ProdutoVenda
+
+    vendaid =  factory.Faker('pyint', min_value=1, max_value=9999)
+    produtoid = factory.Faker('pyint', min_value=1, max_value=9999)
+    qtdproduto = factory.Faker('pyint', min_value=0, max_value=99)
