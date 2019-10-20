@@ -18,8 +18,7 @@ class Produto(db.Model):
     estoque = db.Column(db.Integer)
     descricao = db.Column(db.String)
 
-    categoria = db.relationship('Categoria', backref="produto_tb")
-
+    categoria = db.relationship('Categoria', backref="produto_tb", lazy="joined")
 
     def __init__(self, categoriaid, nome, peso, altura, largura, cor, material, precocusto, precovendavarejo, precovendaatacado, imposto, estoque, descricao, produtoid=None):
         self.produtoid = produtoid
@@ -38,47 +37,26 @@ class Produto(db.Model):
         self.descricao = descricao
 
     def __repr__(self):
-        return f'<id {self.produtoid}>'
+        return f'<Produto {self.produtoid}>'
 
     def serialize(self):
         return {
-            'produtoid': self.produtoid,
-            'categoriaid': self.categoriaid,
-            'nome': self.nome ,
-            'peso': self.peso ,
-            'altura': self.altura ,
-            'largura': self.largura,
-            'cor': self.cor ,
-            'material': self.material ,
-            'precocusto': self.precocusto,
-            'precovendavarejo': self.precovendavarejo,
-            'precovendaatacado': self.precovendaatacado,
-            'imposto': self.imposto ,
-            'estoque': self.estoque,
-            'descricao': self.descricao
+            "produtoid": self.produtoid,
+            "categoria": None if not self.categoria else self.categoria.serialize(),
+            "nome": self.nome,
+            "peso": self.peso,
+            "altura": self.altura,
+            "largura": self.largura,
+            "cor": self.cor,
+            "material": self.material,
+            "precocusto": self.precocusto,
+            "precovendavarejo": self.precovendavarejo,
+            "precovendaatacado": self.precovendaatacado,
+            "imposto": self.imposto,
+            "estoque": self.estoque,
+            "descricao": self.descricao
         }
 
-    def serialize_repr(self):
-        return {
-            'produtoid': self.produtoid,
-            'categoria': {
-                'categoriaid': self.categoriaid,
-                'nome': self.categoria.nome
-            },
-            'nome': self.nome ,
-            'peso': self.peso ,
-            'altura': self.altura ,
-            'largura': self.largura,
-            'cor': self.cor ,
-            'material': self.material ,
-            'precocusto': self.precocusto,
-            'precovendavarejo': self.precovendavarejo,
-            'precovendaatacado': self.precovendaatacado,
-            'imposto': self.imposto ,
-            'estoque': self.estoque,
-            'descricao': self.descricao
-        }
-        
     def serialize_min(self):
         return {
             'produtoid': self.produtoid,
