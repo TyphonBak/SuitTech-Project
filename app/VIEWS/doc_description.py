@@ -1,21 +1,79 @@
-from tests.factory_class import ProdutoFactory, ClienteFactory, VendaFactory, VendedorFactory
+cliente_id = {"clienteid": 31}
 
-produto_obj = ProdutoFactory.build()
-produto_sample = produto_obj.serialize()
-produto_sample_min = produto_obj.serialize_min()
-produto_sample['produtoid'] = 1
-produto_id = {'produtoid': produto_sample.pop('produtoid', None)}
-cliente_obj = ClienteFactory.build()
-cliente_sample = cliente_obj.serialize()
-cliente_sample_min = cliente_obj.serialize_min()
-cliente_sample['clienteid'] = 1
-cliente_id = {'clienteid': cliente_sample.pop('clienteid', None)}
-venda_sample = VendaFactory.build().serialize()
-venda_sample['vendaid'] = 1
-venda_id = {'vendaid': venda_sample.pop('vendaid', None)}
-vendedor_sample = VendedorFactory.build().serialize()
-vendedor_sample['vendedorid'] = 1
-vendedor_id = {'vendedorid': vendedor_sample.pop('vendedorid', None)}
+cliente = {
+  "cep": 7257820.0,
+  "cidade": "Azevedo do Amparo",
+  "cpf_cnpj": 92762978892.0,
+  "email": "lais52@yahoo.com.br",
+  "logradouro": "Praça de da Mata",
+  "nome": "Ana Maria Gomes",
+  "numero": 632.0,
+  "telefone": 120577089.0,
+  "uf": "AP"
+}
+
+cliente_min = {
+    "clienteid": 31,
+    "email": "lais52@yahoo.com.br",
+    "nome": "Ana Maria Gomes",
+    "telefone": 120577089.0
+}
+
+vendedor_id = {"vendedorid": 1}
+
+vendedor = {
+    "cpf": 1213454612.0,
+    "email": "silvajoao@email.com",
+    "nome": "Silva João"
+}
+
+categoria = { 
+    "categoria": {
+        "cateoriaid": 1,
+        "nome": "Categoria"
+    }
+}
+
+categoria_id = {"categoriaid": 1}
+
+produto_id = {"produtoid": 1}
+
+produto = {
+  "altura": 50.0,
+  "cor": "Azul",
+  "descricao": "Descricao",
+  "estoque": 2,
+  "imposto": 7.0,
+  "largura": 20.0,
+  "material": "Lã sintétoca",
+  "nome": "Tal Pano",
+  "peso": 100.0,
+  "precocusto": 5.5,
+  "precovendaatacado": 13.0,
+  "precovendavarejo": 15.0
+}
+
+produto_min = {
+    "nome": "Tal Pano",
+    "produtoid": 1
+}
+
+venda_id = {"vendaid": 13}
+
+venda = {
+  "produtos": [
+    {
+      "produtoid": 1,
+      "qtdproduto": 2
+    }
+  ]
+}
+
+venda_req = {
+    **cliente_id,
+    **venda,
+    **vendedor_id
+}
 
 doc= {
     "url base": "api-titarte.herokuapp.com/",
@@ -71,16 +129,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": [{**produto_id, **produto_sample_min}],
+                    "exemplo": [{**produto_min, **categoria}],
                     "descricao": "Lista de produtos simplificados"
                 }
             },
             "POST": {
                 "descricao": "Este objeto permite criar um novo produto dentro do banco de dados.",
-                "pacote": produto_sample,
+                "pacote": [f'{param}: {type(produto[param]).__name__}' if not param == 'produtoid' else None for param in produto.keys()],
                 "retorno": {
                     "code": 201,
-                    "exemplo": {**produto_id, **produto_sample},
+                    "exemplo": {**produto_id, **produto, **categoria},
                     "descricao": "Caracteristicas do produto consolidadas."
                 }
             }
@@ -91,16 +149,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": {**produto_id, **produto_sample},
+                    "exemplo": {**produto_id, **produto, **categoria},
                     "descricao": "Caracteristicas do produto consolidadas."
                 }
             },
             "PUT": {
                 "descricao": "Este objeto permite realizar alterações de um produto dentro do banco de dados.",
-                "pacote": produto_sample,
+                "pacote": 'parametros',
                 "retorno": {
                     "code": 200,
-                    "exemplo": {**produto_id, **produto_sample},
+                    "exemplo": {**produto_id, **produto, **categoria},
                     "descricao": "Caracteristicas do produto consolidadas."
                 }
             },
@@ -120,16 +178,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": [{**cliente_id, **cliente_sample_min}],
+                    "exemplo": [cliente_min],
                     "descricao": "Esta requisição retornará apenas as informações principais como ID, nome e e-mail."
                 }
             },
             "POST": {
                 "descricao": "Este objeto permite criar um novo cliente dentro do banco de dados.",
-                "pacote": cliente_sample,
+                "pacote": 'parametros',
                 "retorno": {
                     "code": 201,
-                    "exemplo": {**cliente_id, **cliente_sample},
+                    "exemplo": {**cliente_id, **cliente},
                     "descricao": "Caracteristicas de clientes consolidadas."
                 }
             }
@@ -140,7 +198,7 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": {**cliente_id, **cliente_sample},
+                    "exemplo": {**cliente_id, **cliente},
                     "descricao": "Caracteristicas do cliente consolidadas."
                 }
             },
@@ -148,11 +206,11 @@ doc= {
                 "descricao": "Este objeto permite realizar alterações de um cliente do banco de dados.",
                 "pacote": {
                     "code": 200,
-                    "exemplo": cliente_sample
+                    "exemplo": 'parametros opicionais'
                 },
                 "retorno": {
                     "code": 200,
-                    "exemplo": {**cliente_id, **cliente_sample},
+                    "exemplo": {**cliente_id, **cliente},
                     "descricao": "Caracteristicas do cliente consolidadas."
                 }
             },
@@ -172,16 +230,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": [{**venda_id, **venda_sample}],
+                    "exemplo": [{**venda}],
                     "descricao": "Lista de vendas"
                 }
             },
             "POST": {
                 "descricao": "Este objeto permite criar um nova venda dentro do banco de dados.",
-                "pacote": venda_sample,
+                "pacote": 'parametros',
                 "retorno": {
                     "code": 201,
-                    "exemplo": {**venda_id, **venda_sample},
+                    "exemplo": venda,
                     "descricao": "Caracteristicas da venda consolidada."
                 }
             }
@@ -192,7 +250,7 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": {**venda_id, **venda_sample},
+                    "exemplo": venda,
                     "descricao": "Caracteristicas do venda consolidadas."
                 }
             },
@@ -204,7 +262,7 @@ doc= {
                     },
                 "retorno": {
                     "code": 200,
-                    "exemplo": {**venda_id, **venda_sample},
+                    "exemplo": venda,
                     "descricao": "Caracteristicas da venda consolidada."
                 }
             },
@@ -224,16 +282,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": [{**vendedor_id, **vendedor_sample}],
+                    "exemplo": [{**vendedor, **vendedor_id}],
                     "descricao": "Lista de vendedores"
                 }
             },
             "POST": {
                 "descricao": "Este objeto permite criar um novo vendedor dentro do banco de dados.",
-                "pacote": vendedor_sample,
+                "pacote": 'parametros',
                 "retorno": {
                     "code": 201,
-                    "exemplo": {**vendedor_id, **vendedor_sample},
+                    "exemplo": {**vendedor, **vendedor_id},
                     "descricao": "Caracteristicas da vendedor consolidadas."
                 }
             }
@@ -244,16 +302,16 @@ doc= {
                 "pacote": None,
                 "retorno": {
                     "code": 200,
-                    "exemplo": {**vendedor_id, **vendedor_sample},
+                    "exemplo": {**vendedor, **vendedor_id},
                     "descricao": "Caracteristicas dos vendedores consolidadas."
                 }
             },
             "PUT": {
                 "descricao": "Este objeto permite realizar alterações de um vendedor dentro do banco de dados.",
-                "pacote": vendedor_sample,
+                "pacote": 'parametros',
                 "retorno": {
                     "code": 200,
-                    "exemplo": {**vendedor_id, **vendedor_sample},
+                    "exemplo": {**vendedor, **vendedor_id},
                     "descricao": "Caracteristicas do vendedor consolidada."
                 }
             },

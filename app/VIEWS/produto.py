@@ -23,7 +23,7 @@ def criar():
 @bp_produto.route('/api/produtos/<int:id>', methods=['PUT'])
 def alterar(id):
     if not request.json:
-        return jsonify(), 404
+        return jsonify(), 400
     code, conteudo = alterar_service(id, request.json)
     return jsonify(conteudo), code
 
