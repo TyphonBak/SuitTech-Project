@@ -16,7 +16,7 @@ def buscar(id):
             return 200, cliente.serialize()
         return 404, None
     except Exception as e:
-        return 400, e
+        return 400, str(e)
 
 def criar(dados):
     try:
@@ -28,7 +28,7 @@ def criar(dados):
             return 201, cliente.serialize()
         return 503, 'Database Unavailable'
     except Exception as e:
-        return 400, e
+        return 400, str(e)
 
 def alterar(id, dados):
     try:
@@ -40,7 +40,7 @@ def alterar(id, dados):
             return 200, cliente.serialize()
         return 404, 'Cliente não encontrado'
     except Exception as e:
-        return 400, e
+        return 400, str(e)
 
 def deletar(id):
     try:
@@ -51,4 +51,4 @@ def deletar(id):
             return 204, 'No Content'
         return 404, 'Referencia não existente'
     except Exception as e:
-        return 400, e
+        return 400, str(e)
