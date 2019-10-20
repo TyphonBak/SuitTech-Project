@@ -7,7 +7,7 @@ def listar():
         print('Esses clientes... ', clientes)
         return None, clientes
     except Exception as e:
-        return e, []
+        return str(e), []
 
 def buscar(id):
     try:
@@ -16,7 +16,7 @@ def buscar(id):
             return None, None
         return None, cliente
     except Exception as e:
-        return e, None
+        return str(e), None
 
 def criar(dados):
     try:
@@ -51,4 +51,4 @@ def deletar(id):
         return None, cliente
     except Exception as e:
         db.session.rollback()
-        return e, None
+        return str(e), None

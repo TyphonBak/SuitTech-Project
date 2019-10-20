@@ -9,18 +9,18 @@ def listar():
     except Exception as e:
         return e, []
 
-def buscar_por_venda(id_venda):
+def buscar_por_produto(vendaid, id_produto):
     try:
-        produtos_venda = ProdutoVenda.query.filter_by(vendaid=id_venda)
-        if not all([lambda prod: isinstance(prod, ProdutoVenda) for prod in produtos_venda]):
+        produto_venda = ProdutoVenda.query.filter(ProdutoVenda.vendaid==vendaid, ProdutoVenda.produtoid==id_produto).first()
+        if not isinstance(produto_venda, ProdutoVenda):
             return None, None
-        return None, produtos_venda
+        return None, produto_venda
     except Exception as e:
         return e, None
 
 def criar(dados):
     try:
-        produto_venda = produto_venda(**dados)
+        produto_venda = ProdutoVenda(**dados)
         db.session.add(produto_venda)
         db.session.commit()
         return None, produto_venda
@@ -28,9 +28,9 @@ def criar(dados):
         db.session.rollback()
         return str(e.__dict__.get('orig')), None
 
-def alterar(id, dados):
+def alterar(dados):
     try:
-        _query = ProdutoVenda.query.filter_by(produto_vendaid=id)
+        _query = ProdutoVenda.query.filter(ProdutoVenda.vendaid==dados.get('vendaid'), ProdutoVenda.produtoid==dados.get('produtoid'))
         produto_venda = _query.first()
         if not isinstance(produto_venda, ProdutoVenda):
             return None, None
@@ -38,6 +38,7 @@ def alterar(id, dados):
         db.session.commit()
         return None, produto_venda
     except Exception as e:
+        import pdb; pdb.set_trace()
         db.session.rollback()
         return str(e), None
 

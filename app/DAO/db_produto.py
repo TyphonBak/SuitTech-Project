@@ -4,14 +4,14 @@ from app.BLL.models.categoria import Categoria
 
 def listar():
     try:
-        produtos = Produto.query.join(Categoria).all()
+        produtos = Produto.query.all()
         return None, produtos
     except Exception as e:
         return e, []
 
 def buscar(id):
     try:
-        produto = Produto.query.join(Categoria).filter(Produto.produtoid==id).first()
+        produto = Produto.query.get(id)
         if not isinstance(produto, Produto):
             return None, None
         return None, produto
