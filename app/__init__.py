@@ -14,6 +14,7 @@ def create_app(config_file='settings.py'):
     CORS(app)
 
     app.config.from_pyfile(config_file)
+    app.config['JSON_AS_ASCII'] = False
 
     db.init_app(app)
     db.app = app
