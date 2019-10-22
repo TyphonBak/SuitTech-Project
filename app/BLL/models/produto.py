@@ -61,5 +61,7 @@ class Produto(db.Model):
         return {
             'produtoid': self.produtoid,
             'nome': self.nome,
-            'categoriaid': self.categoriaid
+            'categoriaid': self.categoriaid,
+            'estoque': self.estoque,
+            'preco': self.precovendavarejo
         }
