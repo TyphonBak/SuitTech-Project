@@ -19,6 +19,7 @@ class Produto(db.Model):
     descricao = db.Column(db.String)
 
     categoria = db.relationship('Categoria', backref="produto_tb", lazy="joined")
+    imagens = db.relationship('Imagem', backref="produto_tb", lazy="joined")
 
     def __init__(self, categoriaid, nome, peso, altura, largura, cor, material, precocusto, precovendavarejo, precovendaatacado, imposto, estoque, descricao, produtoid=None):
         self.produtoid = produtoid
@@ -44,6 +45,7 @@ class Produto(db.Model):
             "produtoid": self.produtoid,
             "categoria": None if not self.categoria else self.categoria.serialize(),
             "nome": self.nome,
+            "imagens": None if not self.imagens else [imagem.serialize_min() for imagem in self.imagens],
             "peso": self.peso,
             "altura": self.altura,
             "largura": self.largura,
@@ -61,6 +63,7 @@ class Produto(db.Model):
         return {
             'produtoid': self.produtoid,
             'nome': self.nome,
+            'imagens': None if not self.imagens else [imagem.serialize_min() for imagem in self.imagens],
             'categoriaid': self.categoriaid,
             'estoque': self.estoque,
             'preco': self.precovendavarejo
