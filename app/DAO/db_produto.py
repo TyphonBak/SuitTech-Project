@@ -7,7 +7,7 @@ def listar():
         produtos = Produto.query.all()
         return None, produtos
     except Exception as e:
-        return e, []
+        return str(e), []
 
 def buscar(id):
     try:
@@ -16,7 +16,7 @@ def buscar(id):
             return None, None
         return None, produto
     except Exception as e:
-        return e, None
+        return str(e), None
 
 def criar(dados):
     try:
@@ -51,4 +51,4 @@ def deletar(id):
         return None, produto
     except Exception as e:
         db.session.rollback()
-        return e, None
+        return str(e), None
