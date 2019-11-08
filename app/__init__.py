@@ -6,6 +6,7 @@ from .VIEWS.cliente import bp_cliente
 from .VIEWS.produto import bp_produto
 from .VIEWS.venda import bp_venda
 from .VIEWS.vendedor import bp_vendedor
+from .VIEWS.categoria import bp_categoria
 from .VIEWS.documentacao import bp_doc
 
 def create_app(config_file='settings.py'):
@@ -23,6 +24,7 @@ def create_app(config_file='settings.py'):
     app.register_blueprint(bp_produto)
     app.register_blueprint(bp_venda)
     app.register_blueprint(bp_vendedor)
+    app.register_blueprint(bp_categoria)
     app.register_blueprint(bp_doc)
 
     return app
