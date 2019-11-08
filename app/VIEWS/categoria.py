@@ -3,7 +3,7 @@ from app.BLL.categoria_service import listar as listar_service
 
 bp_categoria = Blueprint('Categoria BP', __name__)
 
-@bp_categoria('/api/categorias', methods=['GET'])
+@bp_categoria.route('/api/categorias', methods=['GET'])
 def listar():
     code, conteudo = listar_service()
     return jsonify(conteudo), code
