@@ -6,7 +6,7 @@ def listar():
         categorias = Categoria.query.all()
         return None, categorias
     except Exception as e:
-        return e, []
+        return str(e), []
 
 def buscar(id):
     try:
@@ -15,7 +15,7 @@ def buscar(id):
             return None, None
         return None, categoria
     except Exception as e:
-        return e, None
+        return str(e), None
 
 def criar(dados):
     try:
@@ -50,4 +50,4 @@ def deletar(id):
         return None, categoria
     except Exception as e:
         db.session.rollback()
-        return e, None
+        return str(e), None
