@@ -1,10 +1,12 @@
 import os
+import base64
 from imgurpython import ImgurClient
 import requests
+import json
 
 def authenticate():
 
-    config = os.environ.get('imgur_credentials')
+    config = json.loads(os.environ.get("imgur_credentials").replace("'", "\""))
 
     client_id = config.get('client_id', None)
     client_secret = config.get('client_secret', None)
@@ -19,7 +21,7 @@ def authenticate():
     return client
 
 def refresh_token():
-    config = os.environ.get('imgur_credentials')
+    config = json.loads(os.environ.get("imgur_credentials").replace("'", "\""))
 
     new_access = {
 	"refresh_token": config.get('refresh_token', None),
@@ -28,7 +30,7 @@ def refresh_token():
 	"grant_type": "refresh_token"
     }
     request = requests.post('https://api.imgur.com/oauth2/token', json=new_access)
-    refresh_token, access_token = map(request.get, ('refresh_token','access_token'))
+    refresh_token, access_token = map(json.loads(request.text).get, ('refresh_token','access_token'))
 
     config['refresh_token'] = refresh_token
     config['access_token'] = access_token
@@ -36,7 +38,7 @@ def refresh_token():
 def upload_image(bin_image):
     client = authenticate()
     album = None # quando houver gerenciamento do album, receber o id 
-    image_path = bin_image
+    image_path = base64_to_path(bin_image)
     config = {
 		'album': album
 	}
@@ -45,6 +47,7 @@ def upload_image(bin_image):
         image = client.upload_from_path(image_path, config=config, anon=False)
     except Exception:
         refresh_token()
+        print("Faltou refresh")
         client = authenticate()
         image = client.upload_from_path(image_path, config=config, anon=False)
 
@@ -58,3 +61,11 @@ def delete_image(image_id):
         return True
     except Exception:
         return False
+
+def base64_to_path(img_b64):
+    imgdata = base64.b64decode(img_b64[img_b64.index(',')+1:])
+    filename = 'some_image.jpg'
+    with open(filename, 'wb') as f:
+        f.write(imgdata)
+
+    return filename
