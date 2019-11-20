@@ -18,22 +18,22 @@ def buscar(id):
     except Exception as e:
         return 400, str(e)
 
-def criar(images_bin=None, **dados):
+def criar(imagens=None, **dados):
     try:
         erro, produto = criar_db(dados)
 
         if erro:
             return 400, erro
         if produto:
-            if images_bin:
-                gerenciar_imagens(images_bin, produto.produtoid)
+            if imagens:
+                gerenciar_imagens(imagens, produto.produtoid)
             return 201, produto.serialize()
         return 503, 'Database Unavailable'
 
     except Exception as e:
         return 400, str(e)
 
-def alterar(id, images_bin, **dados):
+def alterar(id, imagens=None, **dados):
     try:
         dados['produtoid'] = id
         erro, produto = alterar_db(id, dados)
