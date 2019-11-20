@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pytest = "*"
 
 [packages]
 flask = "*"
@@ -16,6 +17,8 @@ gunicorn = "*"
 psycopg2 = "*"
 psycopg2-binary = "*"
 flask-cors = "*"
+imgurpython = "*"
+configparser = "*"
 
 [requires]
 python_version = "3.7"
