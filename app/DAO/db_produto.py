@@ -26,7 +26,7 @@ def criar(dados):
         return None, produto
     except Exception as e:
         db.session.rollback()
-        return str(e.__dict__.get('orig')), None
+        return str(e), None
 
 def alterar(id, dados):
     try:
