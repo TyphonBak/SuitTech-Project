@@ -1,4 +1,5 @@
 from app.DAO.db_produto import listar as listar_db, buscar as buscar_db, criar as criar_db, alterar as alterar_db, deletar as deletar_db
+from app.BLL.imagem_service import gerenciar as gerenciar_imagens
 
 def listar():
     erro, produtos = listar_db()
@@ -17,18 +18,22 @@ def buscar(id):
     except Exception as e:
         return 400, str(e)
 
-def criar(dados):
+def criar(images_bin=None, **dados):
     try:
         erro, produto = criar_db(dados)
+
         if erro:
             return 400, erro
         if produto:
+            if images_bin:
+                gerenciar_imagens(images_bin, produto.produtoid)
             return 201, produto.serialize()
         return 503, 'Database Unavailable'
+
     except Exception as e:
         return 400, str(e)
 
-def alterar(id, dados):
+def alterar(id, images_bin, **dados):
     try:
         dados['produtoid'] = id
         erro, produto = alterar_db(id, dados)
