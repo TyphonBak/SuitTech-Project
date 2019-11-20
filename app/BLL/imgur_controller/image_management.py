@@ -1,39 +1,37 @@
+import os
 from imgurpython import ImgurClient
-import configparser
 import requests
 
 def authenticate():
 
-    config = configparser.ConfigParser()
-    config.read('auth.ini')
+    config = os.environ.get('imgur_credentials')
 
-    client_id = config.get('credentials', 'client_id')
-    client_secret = config.get('credentials', 'client_secret')
+    client_id = config.get('client_id', None)
+    client_secret = config.get('client_secret', None)
 
-    imgur_username = config.get('credentials', 'imgur_username')
-    imgur_password = config.get('credentials', 'imgur_password')
-    access_token = config.get('credentials', 'access_token')
-    refresh_token = config.get('credentials', 'refresh_token')
+    imgur_username = config.get('imgur_username', None)
+    imgur_password = config.get('imgur_password', None)
+    access_token = config.get('access_token', None)
+    refresh_token = config.get('refresh_token', None)
 
     client = ImgurClient(client_id, client_secret)
     client.set_user_auth(access_token, refresh_token)
     return client
 
 def refresh_token():
-    config = configparser.ConfigParser()
-    config.read('auth.ini')
+    config = os.environ.get('imgur_credentials')
 
     new_access = {
-	"refresh_token": config.get('credentials', 'refresh_token'),
-	"client_id": config.get('credentials','client_id'),
-	"client_secret": config.get('credentials','client_secret'),
+	"refresh_token": config.get('refresh_token', None),
+	"client_id": config.get('client_id', None),
+	"client_secret": config.get('client_secret', None),
 	"grant_type": "refresh_token"
     }
     request = requests.post('https://api.imgur.com/oauth2/token', json=new_access)
     refresh_token, access_token = map(request.get, ('refresh_token','access_token'))
 
-    config.set('credentials', 'refresh_token', refresh_token)
-    config.set('credentials', 'access_token', access_token)
+    config['refresh_token'] = refresh_token
+    config['access_token'] = access_token
 
 def upload_image(bin_image):
     client = authenticate()
