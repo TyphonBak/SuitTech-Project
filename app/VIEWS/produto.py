@@ -17,14 +17,14 @@ def buscar(id):
 def criar():
     if not request.json:
         return jsonify(), 400
-    code, conteudo = criar_service(request.json)
+    code, conteudo = criar_service(**request.json)
     return jsonify(conteudo), code
 
 @bp_produto.route('/api/produtos/<int:id>', methods=['PUT'])
 def alterar(id):
     if not request.json:
         return jsonify(), 400
-    code, conteudo = alterar_service(id, request.json)
+    code, conteudo = alterar_service(id, **request.json)
     return jsonify(conteudo), code
 
 @bp_produto.route('/api/produtos/<int:id>', methods=['DELETE'])
