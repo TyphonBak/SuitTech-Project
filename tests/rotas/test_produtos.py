@@ -1,7 +1,7 @@
 import pytest
 from app.extensions import db
 from tests.helper import client, copia_sem_sa_instance
-from tests.factory_class import ProdutoFactory
+from tests.factory_class import ProdutoFactory, CategoriaFactory
 
 class TestProduto:
     #POST

@@ -7,6 +7,7 @@ class ProdutoVenda(db.Model):
     vendaid = db.Column(db.Integer, db.ForeignKey('venda_tb.vendaid'), nullable=False)
     produtoid = db.Column(db.Integer, db.ForeignKey('produto_tb.produtoid'), nullable=False)
     qtdproduto = db.Column(db.Integer, nullable=False)
+    dt_inclusao = db.Column(db.DateTime)
 
     def __init__(self, vendaid, produtoid, qtdproduto, produtovendaid=None):
         self.produtovendaid = produtovendaid

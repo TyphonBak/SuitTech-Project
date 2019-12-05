@@ -3,9 +3,10 @@ from app.BLL.models.imagem import Imagem
 
 def listar_por_produto(produto_id):
     try:
-        imagens = Imagem.query.filter_by(produtoid=produto_id)
+        imagens = Imagem.query.filter_by(produtoid=produto_id).all()
         return None, imagens
     except Exception as e:
+        print(str(e))
         return str(e), None
 
 def criar(dados):
@@ -16,6 +17,7 @@ def criar(dados):
         return None, imagem
     except Exception as e:
         db.session.rollback()
+        print(str(e))
         return str(e.__dict__.get('orig')), None
 
 def deletar(imagemid):
@@ -28,4 +30,5 @@ def deletar(imagemid):
         return None, imagem
     except Exception as e:
         db.session.rollback()
+        print(str(e))
         return str(e), None

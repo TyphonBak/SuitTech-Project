@@ -51,4 +51,5 @@ def deletar(id):
         return None, produto
     except Exception as e:
         db.session.rollback()
+        print(e)
         return str(e), None

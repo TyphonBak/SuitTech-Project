@@ -7,6 +7,7 @@ import json
 def authenticate():
 
     config = json.loads(os.environ.get("imgur_credentials").replace("'", "\""))
+    print("Auth: ", config)
 
     client_id = config.get('client_id', None)
     client_secret = config.get('client_secret', None)
@@ -22,6 +23,7 @@ def authenticate():
 
 def refresh_token():
     config = json.loads(os.environ.get("imgur_credentials").replace("'", "\""))
+    print("Refresh: ", config)
 
     new_access = {
 	"refresh_token": config.get('refresh_token', None),
@@ -42,7 +44,6 @@ def upload_image(bin_image):
     config = {
 		'album': album
 	}
-    #substituir o image_path para o numero binario
     try:
         image = client.upload_from_path(image_path, config=config, anon=False)
     except Exception:
@@ -63,7 +64,7 @@ def delete_image(image_id):
         return False
 
 def base64_to_path(img_b64):
-    imgdata = base64.b64decode(img_b64[img_b64.index(',')+1:])
+    imgdata = base64.b64decode(img_b64)
     filename = 'some_image.jpg'
     with open(filename, 'wb') as f:
         f.write(imgdata)

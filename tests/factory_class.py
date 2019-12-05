@@ -1,10 +1,11 @@
 import factory
-from app.BLL.models.cliente import Cliente
-from app.BLL.models.produto import Produto
-from app.BLL.models.venda import Venda
-from app.BLL.models.vendedor import Vendedor
-from app.BLL.models.categoria import Categoria
-from app.BLL.models.produto_venda import ProdutoVenda
+from app.BLL.models import Cliente
+from app.BLL.models import Imagem
+from app.BLL.models import Produto
+from app.BLL.models import Venda
+from app.BLL.models import Vendedor
+from app.BLL.models import Categoria
+from app.BLL.models import ProdutoVenda
 
 class ClienteFactory(factory.Factory):
     class Meta:

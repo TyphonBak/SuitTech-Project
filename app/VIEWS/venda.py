@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from app.BLL.venda_service import listar as listar_service, buscar as buscar_service, criar as criar_service,  alterar as alterar_service, deletar as deletar_service
+from app.BLL.produtovenda_service import relatorios as relatorios_service
 
 bp_venda = Blueprint('bp_venda', __name__)
 
@@ -30,4 +31,9 @@ def alterar(id):
 @bp_venda.route('/api/vendas/<int:id>', methods=['DELETE'])
 def deletar(id):
     code, conteudo = deletar_service(id)
+    return jsonify(conteudo), code
+
+@bp_venda.route('/api/vendas/relatorios', methods=['GET'])
+def relatorios():
+    code, conteudo = relatorios_service()
     return jsonify(conteudo), code
