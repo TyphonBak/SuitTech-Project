@@ -48,6 +48,7 @@ def criaVenda(vendedorid: int, clienteid: int, produtos: list):
 
 # Sessão de Preparação
 categorias = ["Acessório", "Casa", "Decoração", "Papel & Cia", "Outros"]
+
 produtos = [
     [2,'Toalha de Rosto',[],0.17,0.82,0.50,'Diversos','Algodão',10.00,23.00,25.00,0.00,6,'Toalha de rosto com pintura personalizada.'],
     [2,'Tapete Emborrachado',[],0.28,0.45,0.67,'Diversos','Borracha',12.00,27.00,30.00,0.00,1,'Tapete de borracha pintado e com crochê.'],
